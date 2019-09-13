@@ -1,8 +1,73 @@
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@charset "utf-8";
 
-// Variables
-@import 'variables';
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+/* ==========================================================================
+Foundation
+========================================================================== */
+@import "foundation/reset"; //リセットCSS
+@import "foundation/setting"; // 設定ファイル
+@import "foundation/mixin"; // 定義モジュール
+@import "foundation/base"; // ベース
+
+/* ==========================================================================
+Layout
+========================================================================== */
+@import "layout/header";
+@import "layout/footer";
+@import "layout/content";
+@import "layout/breadcrumb";
+
+/* ==========================================================================
+Object
+========================================================================== */
+
+/* Component
+----------------------------------------------------------------- */
+@import "object/component/label";
+@import "object/component/section";
+@import "object/component/column";
+@import "object/component/article";
+@import "object/component/aside";
+@import "object/component/introduction";
+@import "object/component/card";
+@import "object/component/sns";
+@import "object/component/button";
+@import "object/component/pager";
+@import "object/component/pagetop";
+@import "object/component/list";
+@import "object/component/flexbox";
+
+/* Project
+----------------------------------------------------------------- */
+@import "object/project/slider";
+@import "object/project/search";
+@import "object/project/pickup";
+@import "object/project/community";
+@import "object/project/archive";
+@import "object/project/article";
+@import "object/project/home";
+@import "object/project/about";
+@import "object/project/company";
+@import "object/project/guidance";
+@import "object/project/page";
+@import "object/project/notfound";
+
+
+/* ==========================================================================
+Utility
+========================================================================== */
+@import "object/utility/align";
+@import "object/utility/image";
+@import "object/utility/clearfix";
+@import "object/utility/flex";
+@import "object/utility/space";
+@import "object/utility/text";
+@import "object/utility/icon";
+@import "object/utility/label";
+@import "object/utility/link";
+@import "object/utility/iframe";
+@import "object/utility/bg";
+@import "object/utility/other";

@@ -1,0 +1,57 @@
+@charset "utf-8";
+
+/* Base
+----------------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+  @include mq-max($breakpoint-sm) {
+    font-size: 2.66vw;
+  };
+}
+body {
+  background-color: #fcfbf9;
+  position: relative;
+  min-width: $width-xs;
+  padding-top: 0!important;
+  @include gothic;
+  font-size: $fontsizeBasePc;
+  color: $colorBase;
+  line-height: $lhBasePc;
+  -webkit-text-size-adjust: 100%;/*PCサイトをスマホで見た時の文字サイズ固定*/
+  -webkit-font-feature-settings: "palt";
+  font-feature-settings: "palt";
+  @include mq-max($breakpoint-sm) {
+    // font-size: $fontsizeBaseSp;
+    @include fz_vw(12);
+    line-height: $lhBaseSp;
+  };
+}
+h1, h2, h3, h4, h5, h6 {
+  line-height: $lhTitle;
+}
+caption,th {
+  text-align: left;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: $colorLink;
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: 1em;
+}
+button {
+  &:hover {
+    cursor: pointer;
+  }
+}
