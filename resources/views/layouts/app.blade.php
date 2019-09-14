@@ -76,5 +76,29 @@
             @yield('content')
         </main>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      var= received_id ='';
+      var= my_id ="{{ Auth::id() }}";
+
+      $(document).ready(function(){
+          $('.user').click(function(){
+              $('.user').removeClass('active');
+              $(this).addClass('active');
+
+              received_id = $(this).attr('id');
+              $.ajax({
+                  type="get",
+                  url: "message/" + received_id, //need to create this route
+                  data: "",
+                  cache: false,
+                  success: function(data){
+                      alert(data);
+                  }
+              });
+          });
+      });
+    </script>
 </body>
 </html>
