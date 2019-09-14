@@ -77,28 +77,103 @@
         </main>
     </div>
 
+    <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-      var= received_id ='';
-      var= my_id ="{{ Auth::id() }}";
+      var receiver_id ='';
+      var my_id ="{{ Auth::id() }}";
 
       $(document).ready(function(){
-          $('.user').click(function(){
-              $('.user').removeClass('active');
-              $(this).addClass('active');
+          // ajax setup form csrf token
+          // ヘッダーに読み込ませておくことで安全なAjax通信にする
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          })
 
-              received_id = $(this).attr('id');
-              $.ajax({
-                  type="get",
-                  url: "message/" + received_id, //need to create this route
-                  data: "",
-                  cache: false,
-                  success: function(data){
-                      alert(data);
-                  }
-              });
+// pusher setting
+          Pusher.logToConsole = true;
+
+          var pusher = new Pusher('19b8f9fe95daeaa458e1', {
+             cluster: 'ap3',
+             forceTLS: true
           });
+
+          var channel = pusher.subscribe('my-channel');
+          channel.bind('my-event', function (data) {
+            // alert(JSON.stringify(data));
+            if (my_id == data.from) {
+                $('#' + data.to).click();
+            } else if (my_id == data.to) {
+                if (receiver_id == data.from) {
+                    // 受信者が選択されている場合、選択されたユーザーをリロードする...
+                    $('#' + data.from).click();
+                } else {
+                    // 受信者が選択されていない場合、そのユーザーの通知を追加します
+                    var pending = parseInt($('#' + data.from).find('.pending').html());
+
+                    if (pending) {
+                        $('#' + data.from).find('.pending').html(pending + 1);
+                    } else {
+                        $('#' + data.from).append('<span class="pending">1</span>');
+                    }
+                }
+            }
+          });
+// pusher end
+
+
+        $('.user').click(function () {
+            $('.user').removeClass('active');
+            $(this).addClass('active');
+            $(this).find('.pending').remove();
+
+            receiver_id = $(this).attr('id');
+            $.ajax({
+                type: "get",
+                url: "message/" + receiver_id, // need to create this route
+                data: "",
+                cache: false,
+                success: function (data) {
+                    $('#messages').html(data);
+                    scrollToBottomFunc();
+                }
+            });
+        });
+
+        $(document).on('keyup', '.input-text input', function (e) {
+            var message = $(this).val();
+
+            // Enterキーが押され、メッセージがnullでないか、受信者が選択されているかどうかを確認します
+            if (e.keyCode == 13 && message != '' && receiver_id != '') {
+                $(this).val(''); // エンターキーを押すとテキストボックスを空にする
+
+                var datastr = "receiver_id=" + receiver_id + "&message=" + message;
+                $.ajax({
+                    type: "post",
+                    url: "message", // この投稿ルートを作成する必要があります
+                    data: datastr,
+                    cache: false,
+                    success: function (data) {
+
+                    },
+                    error: function (jqXHR, status, err) {
+                    },
+                    complete: function () {
+                        scrollToBottomFunc();
+                    }
+                })
+            }
+        });
       });
+
+    // make a function to scroll down auto
+    function scrollToBottomFunc() {
+        $('.message-wrapper').animate({
+            scrollTop: $('.message-wrapper').get(0).scrollHeight
+        }, 50);
+    }
     </script>
 </body>
 </html>
