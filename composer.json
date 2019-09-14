@@ -12,12 +12,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-<<<<<<< HEAD
-        "silex/silex": "~1.1"
-=======
+        "silex/silex": "~1.1",
         "laravel/ui": "^1.0",
         "pusher/pusher-php-server": "^4.0"
->>>>>>> feature/tanaka
     },
     "require-dev": {
         "facade/ignition": "^1.4",
