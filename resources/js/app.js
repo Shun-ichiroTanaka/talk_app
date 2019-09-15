@@ -6,7 +6,15 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import 'vuetify/dist/vuetify.min.css'
+import colors from 'vuetify/es5/util/colors'
+import router from './router'
+
+Vue.use(Vuetify)
+
+
 
 /**
  * The following block of code may be used to automatically register your
